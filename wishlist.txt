@@ -1,0 +1,23 @@
+Blowups (refinement of fans)
+pullbacks of divisors
+pullbacks of sheaves
+Debug existing code
+Look in classical references (e.g. Cox Little Schenck) for the toric morphisms there (e.g. obvious examples)
+isSemiProjective (support of the fan is convex?)
+isProjective
+isInjective
+isSurjective (check this)
+isFibration (check this)
+isBirational
+isBundle
+Image of a subvariety 
+Degree of the morphism
+isSmooth
+is(LocallyTrivial)FiberBundle
+Induced map on the Chow ring
+Images of cones
+We need a bunch of test examples to check that the code is performing as it should, e.g.:
+  Geometric quotients (inclusion of one lattice as a sublattice)
+
+What other properties of morphisms between toric varieties?
+Can we get at the fibers of a morphism?
