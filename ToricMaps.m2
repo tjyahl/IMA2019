@@ -224,12 +224,11 @@ X = normalToricVariety({{1,0,0},{0,0,1},{0,0,-1}},{{0,1},{0,2}})
 Y = normalToricVariety({{0,-1}},{{0}})
 f = map(Y,X,matrix{{1,0,0},{0,1,0}})
 assert not isWellDefined f
-assert not isProper f
 
 --< Tests for isProper (see isProperPics.pdf) >--
 --The source and target are proper then the map is proper
 H2 = hirzebruchSurface 2
-PP1 = projectiveSpace 1
+PP1 = toricProjectiveSpace 1
 f = map(PP1,H2,matrix{{1,0}})
 assert isWellDefined f
 assert isProper f
@@ -246,7 +245,7 @@ assert isWellDefined g
 assert isProper g
 
 --Test A: The source and target are both not proper but the map is proper
-P1A1 = (affineSpace 1) ** (projectiveSpace 1)
+P1A1 = (affineSpace 1) ** (toricProjectiveSpace 1)
 A1 = affineSpace 1
 h = map(A1, P1A1, matrix{{1,0}})
 assert isWellDefined h
@@ -254,14 +253,14 @@ assert isProper h
 
 --Test B
 X = normalToricVariety({{1,0,0},{0,1,0},{0,0,1},{-1,0,0},{0,0,-1}},{{0,1},{1,2,3},{1,3,4}})
-Y = (projectiveSpace 1) ** (affineSpace 1)
+Y = (toricProjectiveSpace 1) ** (affineSpace 1)
 f = map(Y,X,matrix{{1,0,0},{0,1,0}})
 assert isWellDefined f
 assert not isProper f
 
 --Test C
 X = normalToricVariety({{1,0,0},{0,1,0},{-1,0,0},{0,0,1},{0,0,-1}},{{0},{1,2,3},{1,2,4}})
-Y = (projectiveSpace 1) ** (affineSpace 1)
+Y = (toricProjectiveSpace 1) ** (affineSpace 1)
 A = matrix{{1,0,0},{0,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
