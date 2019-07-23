@@ -340,6 +340,46 @@ beginDocumentation()
 
 doc ///
     Key
+        (isProper, ToricMap)
+    Headline 
+        checks if a toric map is proper
+    Usage 
+        isProper f
+    Inputs 
+        f:ToricMap
+	    a map between toric varieties
+    Outputs 
+        :Boolean 
+	    returns true if the map is proper; false if not
+    Description
+        Text
+            A map f of varieties is proper if it is universally closed. 
+	    Letting f be a map of toric varieties and f' the corresponding map of lattices, the map f is
+	    proper if and only if the preimage of the support of the target fan under f' is the support 
+	    of the source fan. 
+    	Text
+            This example illustrates that the projection from the Hirzenberg surface H2 to P^1 is proper.
+    	Example  
+	   H2 = hirzebruchSurface 2
+           PP1 = toricProjectiveSpace 1
+           f = map(PP1,H2,matrix{{1,0}})
+    	   isProper(f)
+	Text
+	    This example illustrates that the map from the  blow-up of the origin of 
+	    affine 2-space to affine 2-space is proper.
+	Example
+	   AA2 = affineSpace 2;
+	   max AA2
+	   BlO = toricBlowup({0,1}, AA2)
+	   f  = map(AA2, BlO, 1)
+           isProper(f)
+    SeeAlso
+        "Making normal toric varieties"
+  
+/// 
+
+doc ///
+    Key
         (hilbertPolynomial, NormalToricVariety)
     Headline 
         computes the Hilbert polynomial
