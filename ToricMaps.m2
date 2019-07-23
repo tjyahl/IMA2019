@@ -340,6 +340,26 @@ beginDocumentation()
 
 doc ///
     Key
+        ToricMaps
+    Headline
+        a type encoding maps between normal toric varieties
+    Description
+        Text
+	    A morphism of normal toric varieties X -> X' corresponds to a map 
+	    of lattices N -> N' where the fans of X and X' are contained in
+	    N and N' respectively. To specify a map of normal toric varieties,
+	    the target and source normal toric varieties need to be specificied
+	    as well as a matrix which maps  N into N'.
+    SeeAlso
+        NormalToricVarieties  	
+	"Making normal toric varieties"
+	
+///
+
+
+
+doc ///
+    Key
         (isProper, ToricMap)
     Headline 
         checks if a toric map is proper
