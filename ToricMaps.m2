@@ -357,6 +357,50 @@ doc ///
 ///
 
 
+doc ///
+   Key
+        (isWellDefined, ToricMap)
+    Headline 
+        checks if a toric map is well defined 
+    Usage 
+        isWellDefined f
+    Inputs 
+        f:ToricMap
+	    a map between toric varieties
+    Outputs 
+        :Boolean 
+	    returns true if the map is well defined; false if not
+    Description
+        Text
+            This function checks that a toric map f of varieties is well defined by checking that the 
+	    dimensions of the matrix match the dimension of the lattices and checking that the image 
+	    of each maximal cone is contained in a maximal cone of the target fan. 
+    	Text
+            This example illustrates the projection from the Hirzenberg surface H2 to P^1 is well defined.
+    	Example  
+	   H2 = hirzebruchSurface 2
+           PP1 = toricProjectiveSpace 1
+           f = map(PP1,H2,matrix{{1,0}})
+    	   isWellDefined(f)
+	Text
+	    This example gives two different maps from projective 2-space to weighted projective 
+	    space of weight (1,1,2). The map g corresponding to the identity on the lattices is not well-defined, whereas
+	    the map f corresponding to a stretch in the lattices is well-defined.
+	Example
+	   P2 = toricProjectiveSpace 2
+	   WP112 = weightedProjectiveSpace {1,1,2}
+	   g = map(WP112, P2, 1)
+	   isWellDefined(g)
+	   f  = map(WP112, P2, matrix{{1,0},{0,2}})
+           isWellDefined(f)	   
+    SeeAlso
+        ToricMaps
+	"Making normal toric varieties"   
+        (isSmooth, NormalToricVariety)
+        (isSimplicial, NormalToricVariety)
+///
+
+
 
 doc ///
     Key
