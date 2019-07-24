@@ -15,7 +15,27 @@ newPackage(
       {
       Name => "Gregory G. Smith", 
       Email => "ggsmith@mast.queensu.ca", 
-      HomePage => "http://www.mast.queensu.ca/~ggsmith"}
+      HomePage => "http://www.mast.queensu.ca/~ggsmith"},
+      {
+      Name => "Michael Loper",
+      Email => "loper012@umn.edu",
+      HomePage => "http://www.math.umn.edu/~loper012"},
+      {
+      Name => "Elise Walker",
+      Email => "walkere@math.tamu.edu",
+      HomePage => "http://www.math.tamu.edu/~walkere"},
+      {
+      Name => "Weikun Wang",
+      Email => "wwang888@math.umd.edu",
+      HomePage => "http://wangweikun.com"},
+      {
+      Name => "Julie Rana",
+      Email => "ranaj@lawrence.edu",
+      HomePage => "http://sites.google.com/site/jranamath"},
+      {
+      Name => "Thomas Yahl",
+      Email => "thomasjyahl@tamu.edu",
+      HomePage => "http://www.math.tamu.edu/~thomasjyahl"}
       },
   Headline => "routines for working with toric morphisms",
   PackageExports => {
