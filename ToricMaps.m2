@@ -313,6 +313,9 @@ pullback (ToricMap, ToricDivisor) := ToricDivisor => (f, D) -> (
 	    if max(flatten entries (transpose outerNormals(target f, sigma) * imageRho)) <= 0 then imageCone = sigma;
 	    );
 	maxconeindex := position(maxcones, sigma -> sigma == imageCone);
+	--calculate coefficient (coefficientRho) of prime divisor corresponding to the ray rho by
+	--taking the minimal generator of rho and applying the new support function (which is the composition of toric map and target support function)
+	--refer to Prop 6.2.7 in CLS..
 	coefficientRho :=(transpose imageRho * cartierData_(maxconeindex))_0_0;
 	coefficientsofPullback = append(coefficientsofPullback,coefficientRho);
 	);
