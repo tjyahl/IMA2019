@@ -53,7 +53,8 @@ export {
     "ToricMap",
     "isFibration",
     "outerNormals",
-    "isProper"    
+    "isProper",
+    "pullback"    
 }
 
 
@@ -296,6 +297,7 @@ cartierCoefficients ToricDivisor := List => D -> (
     apply (max X, sigma -> coeffs^sigma // rayMatrix^sigma)
     );
 
+
 pullback = method()
 pullback (ToricMap, ToricDivisor) := ToricDivisor => (f, D) -> (
     if not isCartier(D) then error "--expected input to be Cartier";
@@ -304,18 +306,20 @@ pullback (ToricMap, ToricDivisor) := ToricDivisor => (f, D) -> (
     maxcones := max target f;
     coefficientsofPullback := {};
     for rho in raylist do (
-	imageRho := f(rho);
+	imageRho := (matrix f) * (transpose matrix{rho});
 	--find which max cone each ray gets sent into
 	imageCone := {};
 	for sigma in maxcones do (
-	    if max(transpose outerNormals(sigma) * imageRho) <= 0 then imageCone = sigma;
+	    if max(flatten entries (transpose outerNormals(target f, sigma) * imageRho)) <= 0 then imageCone = sigma;
 	    );
 	maxconeindex := position(maxcones, sigma -> sigma == imageCone);
-	coefficientRho :=(matrix{imageRho} * cartierData_(maxconeindex))_0_0;
+	coefficientRho :=(transpose imageRho * cartierData_(maxconeindex))_0_0;
 	coefficientsofPullback = append(coefficientsofPullback,coefficientRho);
 	);
     toricDivisor(coefficientsofPullback,source f)
     )
+
+
 
 TEST ///
 --Tests for isWellDefined
