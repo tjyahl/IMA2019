@@ -249,21 +249,25 @@ cartierCoefficients ToricDivisor := List => D -> (
     );
 
 pullback = method()
-pullback (ToricMap, ToricDivisor) := ToricDivisr => (f, D) -> (
+pullback (ToricMap, ToricDivisor) := ToricDivisor => (f, D) -> (
     if not isCartier(D) then error "--expected input to be Cartier";
     cartierData := cartierCoefficients D;
     raylist := rays source f;
     maxcones := max target f;
-    Dpullback := toricDivisor(toList(#raylist:0),source f);
+    coefficientsofPullback := {};
     for rho in raylist do (
-	imagerho = f(rho);
+	imageRho := f(rho);
 	--find which max cone each ray gets sent into
+	imageCone := {};
 	for sigma in maxcones do (
-	    if max(transpose outerNormals(sigma) * imagerho) <= 0 then imagecone := sigma;
-	    )
-	maxconeindex := position(maxcones, sigma -> sigma == imagecone);
-	cartierData_(maxconeindex) * imagerho
-	    
+	    if max(transpose outerNormals(sigma) * imageRho) <= 0 then imageCone = sigma;
+	    );
+	maxconeindex := position(maxcones, sigma -> sigma == imageCone);
+	coefficientRho :=(matrix{imageRho} * cartierData_(maxconeindex))_0_0;
+	coefficientsofPullback = append(coefficientsofPullback,coefficientRho);
+	);
+    toricDivisor(coefficientsofPullback,source f)
+    )
 
 TEST ///
 --Tests for isWellDefined
