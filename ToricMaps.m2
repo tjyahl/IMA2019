@@ -231,7 +231,7 @@ isProper ToricMap := Boolean => f -> (
     true
 )
 
-isProper (ToricMap,List) := (f,asdf)->(
+isProper (ToricMap,ZZ) := (f,banana)->(
     if not isWellDefined f then << "The map is not well defined!" << return false;
     
     X := source f;
@@ -332,17 +332,20 @@ PP1 = toricProjectiveSpace 1
 f = map(PP1,H2,matrix{{1,0}})
 assert isWellDefined f
 assert isProper f
+assert isProper(f,1)
 
 --The source not proper but the target is so the map is not proper
 Y = normalToricVariety(rays H2, drop(max H2, -1))
 f = map(PP1, Y, matrix{{1,0}})
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,2)
 
 --The source is proper and the target is not so the map is proper
 g = map(Y, PP1, matrix{{0},{1}})
 assert isWellDefined g
 assert isProper g
+assert isProper(g,3)
 
 --Test A: The source and target are both not proper but the map is proper
 P1A1 = (affineSpace 1) ** (toricProjectiveSpace 1)
@@ -350,6 +353,7 @@ A1 = affineSpace 1
 h = map(A1, P1A1, matrix{{1,0}})
 assert isWellDefined h
 assert isProper h
+assert isProper(h,4)
 
 --Test B
 X = normalToricVariety({{1,0,0},{0,1,0},{0,0,1},{-1,0,0},{0,0,-1}},{{0,1},{1,2,3},{1,3,4}})
@@ -357,6 +361,7 @@ Y = (toricProjectiveSpace 1) ** (affineSpace 1)
 f = map(Y,X,matrix{{1,0,0},{0,1,0}})
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,5)
 
 --Test C
 X = normalToricVariety({{1,0,0},{0,1,0},{-1,0,0},{0,0,1},{0,0,-1}},{{0},{1,2,3},{1,2,4}})
@@ -365,6 +370,7 @@ A = matrix{{1,0,0},{0,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,6)
 
 --Test D
 X = normalToricVariety({{0,1},{1,0},{0,-1}},{{0,1},{1,2}})
@@ -373,6 +379,7 @@ A = id_(ZZ^2)
 f = map(Y,X,A)
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,7)
 
 --Test D'
 X = normalToricVariety({{0,1},{1,0},{0,-1},{-1,-1}},{{0,1},{1,2},{2,3}})
@@ -381,6 +388,7 @@ A = id_(ZZ^2)
 f = map(Y,X,A)
 assert isWellDefined f
 assert isProper f
+assert isProper(f,8)
 
 --Test E
 X = normalToricVariety({{1,0,0},{0,1,0},{-1,0,0},{0,0,1},{0,0,-1}},{{0,3},{1,2,3},{1,2,4}})
@@ -389,6 +397,7 @@ A = matrix{{1,0,0},{0,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,9)
 
 --Test E'
 X = normalToricVariety({{0,-1,0},{1,0,0},{0,1,0},{-1,0,0},{0,0,1},{0,0,-1}},{{0},{1,4},{1,5},{2,3,4},{2,3,5}})
@@ -397,6 +406,7 @@ A = matrix{{1,0,0},{0,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,10)
 
 --Test F
 X'' = normalToricVariety({{1,0,0},{0,1,0},{-1,0,0},{0,0,1},{0,0,-1}},{{0,3},{0,4},{1,2,3},{1,2,4}})
@@ -405,6 +415,7 @@ A = matrix{{1,0,0},{0,1,0}}
 f = map(Y',X'',A)
 assert isWellDefined f
 assert isProper f
+assert isProper(f,11)
 
 --Test G
 X = normalToricVariety({{-1,1,0},{0,0,1},{0,0,-1}},{{0,1},{0,2}})
@@ -413,6 +424,7 @@ A = matrix{{1,1,0},{1,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,12)
 
 --Test H
 X = normalToricVariety({{1,-1,0},{1,1,0},{-1,1,0},{0,0,1}},{{0,1,3},{1,2,3}})
@@ -421,6 +433,7 @@ A = matrix{{1,1,0},{1,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
 assert not isProper f
+assert not isProper(f,13)
 
 --Test H'
 X = normalToricVariety({{1,-1,0},{1,1,0},{-1,1,0},{0,0,1},{0,0,-1}},{{0,1,3},{1,2,3},{0,1,4},{1,2,4}})
@@ -429,6 +442,7 @@ A = matrix{{1,1,0},{1,1,0}}
 f = map(Y,X,A)
 assert isWellDefined f
 assert isProper f
+assert isProper(f,14)
 
 ///
 
