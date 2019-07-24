@@ -217,6 +217,34 @@ isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 
 isSurjective ToricMap := Boolean => f -> rank matrix f == dim target f
 
+-- THIS METHOD IS NOT EXPORTED.  Given a toric divisor which is assumed to be
+-- Cartier, this method returns the characters on each maximal cone which
+-- determine the Cartier divisor.
+cartierCoefficients = method ()
+cartierCoefficients ToricDivisor := List => D -> (
+    X := variety D;
+    rayMatrix := matrix rays X;
+    coeffs := transpose (matrix {entries D});
+    apply (max X, sigma -> coeffs^sigma // rayMatrix^sigma)
+    );
+
+pullback = method()
+pullback (ToricMap, ToricDivisor) := ToricDivisr => (f, D) -> (
+    if not isCartier(D) then error "--expected input to be Cartier";
+    cartierData := cartierCoefficients D;
+    raylist := rays source f;
+    maxcones := max target f;
+    Dpullback := toricDivisor(toList(#raylist:0),source f);
+    for rho in raylist do (
+	imagerho = f(rho);
+	--find which max cone each ray gets sent into
+	for sigma in maxcones do (
+	    if max(transpose outerNormals(sigma) * imagerho) <= 0 then imagecone := sigma;
+	    )
+	maxconeindex := position(maxcones, sigma -> sigma == imagecone);
+	cartierData_(maxconeindex) * imagerho
+	    
+
 TEST ///
 --Tests for isWellDefined
 --TODO: needs more tests
