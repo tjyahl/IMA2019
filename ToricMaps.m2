@@ -231,6 +231,54 @@ isProper ToricMap := Boolean => f -> (
     true
 )
 
+isProper (ToricMap,List) := (f,asdf)->(
+    if not isWellDefined f then << "The map is not well defined!" << return false;
+    
+    X := source f;
+    Y := target f;
+    
+    if isComplete X then return true;
+    if (isComplete Y and not isComplete X) then return false;
+    
+    rayMatrixX := transpose matrix rays X;
+    rayMatrixY := transpose matrix rays Y;
+    A := matrix f;
+    
+    --based on the idea that the map should be proper if and only if all torus invariant curves in X are                              
+    --PP^1 or are contained in the torus invariant curves of Y.
+    for tau in max Y do (
+	
+	--dimension of tau cap image A and computing potential cones over tau
+	d := dim Y - rank (gens ker transpose A | gens ker transpose rayMatrixY_tau);
+	maxConesWithRightDimension := select(max X,sigma-> member(sigma,orbits(X,rank A - d)));
+	
+	--compute the cones over tau
+	conesOverTau := select(maxConesWithRightDimension, sigma->
+            all(flatten entries (outerNormals(Y,tau)*A*rayMatrixX_sigma),i->i<=0)
+        );
+    
+    	--if no cones over tau, not proper
+	if (#conesOverTau === 0) then return false;
+    
+    	--compute facets of the cones over tau
+        facesOverTau := select(orbits(X,rank A - d + 1), 
+	    alpha-> any(conesOverTau,sigma->isSubset(alpha,sigma))
+	);
+    
+    	--pick which faces appear only once
+	facesCount := hashTable apply(facesOverTau,alpha->{alpha,#select(conesOverTau,sigma->isSubset(alpha,sigma))});
+	uniqueFaces := select(facesOverTau,i-> facesCount#i < 2);
+    
+    	--faces of tau
+    	facesOfTau := select(orbits(Y,dim Y - d + 1), beta->isSubset(beta,tau));
+	
+	--check if the faces appearing only once are contained in faces of tau
+	if not all(uniqueFaces, alpha->any(facesOfTau,beta->coker (A*rayMatrixX_alpha) == coker rayMatrixY_beta)) then return false;
+
+    );
+    true
+)
+
 
 isFibration = method()
 isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
