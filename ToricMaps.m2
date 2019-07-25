@@ -460,6 +460,21 @@ f = map(Y,X, matrix{{1,0}})
 D = toricDivisor({-2,3}, Y)
 assert (pullback(f,D) == toricDivisor({3,0,-2},X))
 
+--Test PB projection of PP^1xPP^1 onto PP^1
+PP1 = toricProjectiveSpace 1
+X = PP1**PP1
+f = map(PP1,X,matrix{{1,0}})
+DPP1=toricDivisor({1,1},PP1)
+assert (pullback(f, DPP1) == toricDivisor({1,1,0,0}, X))
+
+--Test PC Blowup up affine 2-space
+
+AA2 = affineSpace 2;
+BlO = toricBlowup({0,1}, AA2)
+f  = map(AA2, BlO, 1)
+DAA2=toricDivisor({1,0},AA2)
+assert (pullback(f, DAA2)==toricDivisor({1,0,1},BlO))
+
 
 
 ///
