@@ -565,6 +565,48 @@ doc ///
 
 doc ///
     Key
+        (pullback, ToricMap)
+    Headline 
+        computes the pullback of a divisor under a toric map
+    Usage 
+        pullback(f,D)
+    Inputs 
+        f:ToricMap
+	    a map between toric varieties
+	D:ToricDivisor
+	    a toric divisor on the target of f
+    Outputs 
+        :ToricDivisor 
+	    the pullback of D under f
+    Description
+        Text
+            ... 
+    	Text
+            This example illustrates that the pullback of a point on PP^1 under projection from PP^1xPP^1 is a fiber.
+    	Example  
+           PP1 = toricProjectiveSpace 1
+	   X = PP1**PP1
+           f = map(PP1,X,matrix{{1,0}})
+    	   DPP1=toricDivisor({1,1},PP1)
+	   pullback(f, DPP1)
+	Text
+	    This example illustrates that the pullback of a line through the origin in 
+	    affine 2-space under the blowup map is a line together with the exceptional divisor.
+	Example
+	   AA2 = affineSpace 2;
+	   max AA2
+	   BlO = toricBlowup({0,1}, AA2)
+	   f  = map(AA2, BlO, 1)
+	   rays AA2
+	   DAA2=toricDivisor({1,0},AA2)
+           pullback(f, DAA2)
+	 SeeAlso
+        "Making normal toric varieties"
+  
+///
+
+doc ///
+    Key
         (hilbertPolynomial, NormalToricVariety)
     Headline 
         computes the Hilbert polynomial
