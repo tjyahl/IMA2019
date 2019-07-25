@@ -614,7 +614,8 @@ doc ///
 	    the pullback of D under f
     Description
         Text
-            ... 
+            Toric invariant Cartier divisors can be pulled back under a toric map f
+	    by composing the toric map with the support function of the divisor. 
     	Text
             This example illustrates that the pullback of a point on PP^1 under projection from PP^1xPP^1 is a fiber.
     	Example  
