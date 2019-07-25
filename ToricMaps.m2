@@ -284,7 +284,7 @@ isProper (ToricMap,ZZ) := (f,banana)->(
 isFibration = method()
 isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 
-isSurjective ToricMap := Boolean => f -> rank matrix f == dim target f
+isDominant ToricMap := Boolean => f -> rank matrix f == dim target f
 
 -- THIS METHOD IS NOT EXPORTED.  Given a toric divisor which is assumed to be
 -- Cartier, this method returns the characters on each maximal cone which
