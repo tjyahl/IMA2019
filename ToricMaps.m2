@@ -315,7 +315,8 @@ pullback (ToricMap, ToricDivisor) := ToricDivisor => (f, D) -> (
 	maxconeindex := position(maxcones, sigma -> sigma == imageCone);
 	--calculate coefficient (coefficientRho) of prime divisor corresponding to the ray rho by
 	--taking the minimal generator of rho and applying the new support function (which is the composition of toric map and target support function)
-	--refer to Prop 6.2.7 in CLS..
+	--refer to Prop 6.1.20 in Cox Little Schenck 2010 
+	--https://www.mimuw.edu.pl/~jarekw/pragmatic2010/CoxLittleSchenckJan2010.pdf
 	coefficientRho :=(transpose imageRho * cartierData_(maxconeindex))_0_0;
 	coefficientsofPullback = append(coefficientsofPullback,coefficientRho);
 	);
@@ -480,6 +481,10 @@ Y = weightedProjectiveSpace({1,1,2})
 X = normalToricVariety({{1,0},{0,-1},{-1,-2},{-1,0},{0,1}}, {{0,1},{1,2},{2,3},{3,4},{4,0}})
 f = map(Y,X, 1)
 assert try (pullback(f,Y_1);false) else true
+
+-- Still need examples where: 
+-- f is not smooth, and D is Cartier
+-- maximal cones of different dimensions on target f
 ///
 
 
