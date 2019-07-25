@@ -286,6 +286,23 @@ isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 
 isDominant ToricMap := Boolean => f -> rank matrix f == dim target f
 
+isSurjective = method()
+isSurjective (ToricMap) := Boolean => (f) -> (
+targetCones = reverse flatten drop(values orbits target f, -1)
+sourceCones = flatten drop(values orbits source f, -1)
+interiorSourceCones = {}
+for sigma in sourceCones do(
+  interiorSourceCones = append(interiorSourceCones, sum( (rays X)_sigma))
+)
+imageSourceCones = {}
+for sigma in interiorSourceCones do (
+   imageSourceCones = append(imageSourceCones, flatten entries((matrix f) * (transpose matrix{sigma})) )
+)
+--TEST WHICH CONES THESE LAND IN AND EDIT SOURCECONES LIST.
+true
+)
+
+
 -- THIS METHOD IS NOT EXPORTED.  Given a toric divisor which is assumed to be
 -- Cartier, this method returns the characters on each maximal cone which
 -- determine the Cartier divisor.
