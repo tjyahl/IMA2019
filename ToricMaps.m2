@@ -543,7 +543,7 @@ doc ///
 	    proper if and only if the preimage of the support of the target fan under f' is the support 
 	    of the source fan. 
     	Text
-            This example illustrates that the projection from the Hirzenberg surface H2 to P^1 is proper.
+            This example illustrates that the projection from the Hirzebruch surface H2 to P^1 is proper.
     	Example  
 	   H2 = hirzebruchSurface 2
            PP1 = toricProjectiveSpace 1
