@@ -451,6 +451,17 @@ assert isWellDefined f
 assert isProper f
 assert isProper(f,14)
 
+
+--< Tests for pullback  >--
+--Test PA
+X = normalToricVariety({{1,0}, {0,1}, {-1,-1}}, {{0,1}})
+Y = toricProjectiveSpace 1
+f = map(Y,X, matrix{{1,0}})
+D = toricDivisor({-2,3}, Y)
+assert (pullback(f,D) == toricDivisor({3,0,-2},X))
+
+
+
 ///
 
 
