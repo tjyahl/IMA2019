@@ -475,8 +475,11 @@ f  = map(AA2, BlO, 1)
 DAA2=toricDivisor({1,0},AA2)
 assert (pullback(f, DAA2)==toricDivisor({1,0,1},BlO))
 
-
-
+--Test PD testing isCartier
+Y = weightedProjectiveSpace({1,1,2})
+X = normalToricVariety({{1,0},{0,-1},{-1,-2},{-1,0},{0,1}}, {{0,1},{1,2},{2,3},{3,4},{4,0}})
+f = map(Y,X, 1)
+assert try (pullback(f,Y_1);false) else true
 ///
 
 
