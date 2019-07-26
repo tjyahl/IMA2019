@@ -309,6 +309,28 @@ isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 isDominant = method()
 isDominant ToricMap := Boolean => f -> (rank matrix f == dim target f)
 
+outerNorm = method
+outerNorm (NormalToricVariety,List) := Sequence => (X,sigma) -> (
+  if not X.cache.?outerNorm then (
+    X.cache.outerNorm = new MutableHashTable);
+  if not X.cache.outerNorm#?sigma then (
+    V := transpose matrix rays X;
+    D := fourierMotzkin V_sigma;
+    X.cache.outerNorm#sigma = {transpose D#0, transpose D#1});
+    return X.cache.outerNorm#sigma)
+
+isInterior = method()
+isInterior (NormalToricVariety,List,Matrix) := Boolean => (X,sigma,rho) -> (
+   if dim X =!= rank target rho then error "the dimension of the ray is not correct";
+    N :=  outerNorm(X,sigma);
+    NN0 := N#0;
+    NN1 := N#1;  -- hyperplane vectors
+   if (all (flatten entries (NN0 * rho), i -> i < 0) and all (flatten entries(NN1 * rho), i -> i === 0)) then 
+   return true;
+   false)
+
+
+
 --isSurjective is NOT finished
 isSurjective (ToricMap) := Boolean => (f) -> (
 targetCones := reverse flatten drop(values orbits target f, -1);
