@@ -280,6 +280,29 @@ isProper (ToricMap,ZZ) := (f,banana)->(
     true
 )
 
+inducedMap ToricMap := RingMap => opts -> f -> (
+    R := ring source f;
+    Y := target f;
+    if not isSmooth Y then error "-- expected the target variety to be smooth";
+    S := ring Y;
+    map(R, S, apply(numgens S, i -> (
+		exps := entries pullback(f, Y_i);
+		product(numgens R, j -> R_j^(exps#j))
+	    )))
+    )
+
+classGroup ToricMap := Matrix => f -> (
+    X := source f;
+    Y := target f;
+    if not isSmooth Y then error "-- expected the target variety to be smooth";
+    divisorMap := map(weilDivisorGroup X, weilDivisorGroup Y,
+	transpose matrix apply(# rays Y, i -> entries pullback (f, Y_i))
+	);
+    << divisorMap << endl;
+    map(classGroup X, classGroup Y,
+	transpose ((transpose (fromWDivToCl(X) * divisorMap)) // transpose fromWDivToCl(Y) ))
+    )
+
 
 isFibration = method()
 isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
