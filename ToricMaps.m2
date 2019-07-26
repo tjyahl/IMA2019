@@ -309,7 +309,7 @@ isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 isDominant = method()
 isDominant ToricMap := Boolean => f -> (rank matrix f == dim target f)
 
-
+--isSurjective is NOT finished
 isSurjective (ToricMap) := Boolean => (f) -> (
 targetCones := reverse flatten drop(values orbits target f, -1);
 sourceCones := flatten drop(values orbits source f, -1);
@@ -319,7 +319,7 @@ for sigma in sourceCones do(
 );
 imageSourceCones := {};
 for sigma in interiorSourceCones do (
-   imageSourceCones := append(imageSourceCones, flatten entries((matrix f) * (transpose matrix{sigma})) );
+   imageSourceCones := append(imageSourceCones, ((matrix f) * (transpose matrix{sigma})) );
 );
 --test which cones imageSourceCones land in. NEEDS NEW OUTERNORMALS FUNCTION.
 for sigma in imageSourceCones do(
