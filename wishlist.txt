@@ -1,7 +1,10 @@
 Blowups (refinement of fans)
+	Only add note in documentation or example
 pullbacks of divisors
+	This is done!
 pullbacks of sheaves
 Debug existing code
+        Skeptical of isFibration code
 Look in classical references (e.g. Cox Little Schenck) for the toric morphisms there (e.g. obvious examples)
 isSemiProjective (support of the fan is convex?)
 isProjective
