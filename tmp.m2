@@ -27,10 +27,14 @@ classGroup ToricMap := Matrix => f -> (
     divisorMap := map(weilDivisorGroup X, weilDivisorGroup Y,
 	transpose matrix apply(# rays Y, i -> entries pullback (f, Y_i))
 	);
-    transpose ((transpose (fromWDivToCl(X) * divisorMap)) // transpose fromWDivToCl(Y) )
+    << divisorMap << endl;
+    map(classGroup X, classGroup Y,
+	transpose ((transpose (fromWDivToCl(X) * divisorMap)) // transpose fromWDivToCl(Y) ))
     )
 
 classGroup f
+fromWDivToCl(FF1) 
+fromWDivToCl(PP2) 
 X = source f
 Y = target f
 weilDivisorGroup Y
