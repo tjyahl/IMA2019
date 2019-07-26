@@ -15,27 +15,27 @@ newPackage(
       {
       Name => "Gregory G. Smith", 
       Email => "ggsmith@mast.queensu.ca", 
-      HomePage => "http://www.mast.queensu.ca/~ggsmith"},
+      HomePage => "https://www.mast.queensu.ca/~ggsmith"},
       {
       Name => "Michael Loper",
       Email => "loper012@umn.edu",
-      HomePage => "http://www.math.umn.edu/~loper012"},
+      HomePage => "https://www.math.umn.edu/~loper012"},
       {
       Name => "Elise Walker",
       Email => "walkere@math.tamu.edu",
-      HomePage => "http://www.math.tamu.edu/~walkere"},
+      HomePage => "https://www.math.tamu.edu/~walkere"},
       {
       Name => "Weikun Wang",
       Email => "wwang888@math.umd.edu",
-      HomePage => "http://wangweikun.com"},
+      HomePage => "https://wangweikun.com"},
       {
       Name => "Julie Rana",
       Email => "ranaj@lawrence.edu",
-      HomePage => "http://sites.google.com/site/jranamath"},
+      HomePage => "https://sites.google.com/site/jranamath"},
       {
       Name => "Thomas Yahl",
       Email => "thomasjyahl@tamu.edu",
-      HomePage => "http://www.math.tamu.edu/~thomasjyahl"}
+      HomePage => "https://www.math.tamu.edu/~thomasjyahl"}
       },
   Headline => "routines for working with toric morphisms",
   PackageExports => {
@@ -54,7 +54,8 @@ export {
     "isFibration",
     "outerNormals",
     "isProper",
-    "pullback"    
+    "pullback",
+    "isSurjective"    
 }
 
 
@@ -309,7 +310,7 @@ isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 isDominant = method()
 isDominant ToricMap := Boolean => f -> (rank matrix f == dim target f)
 
-outerNorm = method
+outerNorm = method()
 outerNorm (NormalToricVariety,List) := Sequence => (X,sigma) -> (
   if not X.cache.?outerNorm then (
     X.cache.outerNorm = new MutableHashTable);
@@ -331,24 +332,25 @@ isInterior (NormalToricVariety,List,Matrix) := Boolean => (X,sigma,rho) -> (
 
 
 
---isSurjective is NOT finished
+--isSurjective is running, needs tested
+isSurjective = method()
 isSurjective (ToricMap) := Boolean => (f) -> (
 targetCones := reverse flatten drop(values orbits target f, -1);
 sourceCones := flatten drop(values orbits source f, -1);
 interiorSourceCones := {};
 for sigma in sourceCones do(
-  interiorSourceCones := append(interiorSourceCones, sum( (rays source f)_sigma));
+  interiorSourceCones = append(interiorSourceCones, sum( (rays source f)_sigma));
 );
 imageSourceCones := {};
 for sigma in interiorSourceCones do (
-   imageSourceCones := append(imageSourceCones, ((matrix f) * (transpose matrix{sigma})) );
+   imageSourceCones = append(imageSourceCones, ((matrix f) * (transpose matrix{sigma})) );
 );
---test which cones imageSourceCones land in. NEEDS NEW OUTERNORMALS FUNCTION.
-for sigma in imageSourceCones do(
+--test which cones imageSourceCones land in; deleted cone if hit
+for rho in imageSourceCones do(
     if (targetCones =={}) then return true;
-    for rho in targetCones do(
-	if ( max(flatten entries (outerNormals(target f, rho) * sigma)) <0)
-	then (hitConeIndex := position(targetCones, i->i==rho); targetCones = drop(targetCones, hitConeIndex););
+    for sigma in targetCones do(
+        if isInterior(target f, sigma, rho)
+	then (hitConeIndex := position(targetCones, i->i==sigma ); targetCones = drop(targetCones, hitConeIndex););
 	);
     );
 true
