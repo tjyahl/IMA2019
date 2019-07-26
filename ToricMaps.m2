@@ -500,6 +500,30 @@ X = normalToricVariety({{1,0},{0,-1},{-1,-2},{-1,0},{0,1}}, {{0,1},{1,2},{2,3},{
 f = map(Y,X, 1)
 assert try (pullback(f,Y_1);false) else true
 
+--Test PE1 target f has higher dimension than source f
+Y = toricProjectiveSpace 2
+X = toricProjectiveSpace 1
+f = map(Y, X, matrix{{1},{1}})
+DY=toricDivisor({1,0,0},Y)
+assert (pullback(f,DY)==toricDivisor({1,0},X))
+
+--Test PE2 target f has higher dimension than source f
+Y = toricProjectiveSpace 2
+X = toricProjectiveSpace 1
+f = map(Y, X, matrix{{2},{1}})
+DY=toricDivisor({1,0,1},Y)
+pullback(f,DY)
+assert (pullback(f,DY)==toricDivisor({3,1},X))
+
+--Test PE3 target f has higher dimension than source f
+Y = toricProjectiveSpace 2
+X = toricProjectiveSpace 1
+f = map(Y, X, matrix{{-2},{3}})
+DY=toricDivisor({1,0,1},Y)
+pullback(f,DY)
+assert (pullback(f,DY)==toricDivisor({3,7},X))
+
+
 -- Still need examples where: 
 -- f is not smooth, and D is Cartier
 -- maximal cones of different dimensions on target f
