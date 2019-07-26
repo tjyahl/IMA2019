@@ -548,7 +548,7 @@ doc ///
 	    dimensions of the matrix match the dimension of the lattices and checking that the image 
 	    of each maximal cone is contained in a maximal cone of the target fan. 
     	Text
-            This example illustrates the projection from the Hirzenberg surface H2 to P^1 is well defined.
+            This example illustrates the projection from the Hirzebruch surface H2 to P^1 is well defined.
     	Example  
 	   H2 = hirzebruchSurface 2
            PP1 = toricProjectiveSpace 1
