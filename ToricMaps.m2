@@ -313,7 +313,7 @@ cartierCoefficients ToricDivisor := List => D -> (
     rayMatrix := matrix rays X;
     coeffs := transpose (matrix {entries D});
     apply (max X, sigma -> coeffs^sigma // rayMatrix^sigma)
-    );
+    )
 
 
 pullback = method()
@@ -328,7 +328,7 @@ pullback (ToricMap, ToricDivisor) := ToricDivisor => (f, D) -> (
 	--find which max cone each ray gets sent into
 	imageCone := {};
 	for sigma in maxcones do (
-	    if max(flatten entries (transpose outerNormals(target f, sigma) * imageRho)) <= 0 then imageCone = sigma;
+	    if max(flatten entries ( outerNormals(target f, sigma) * imageRho)) <= 0 then imageCone = sigma;
 	    );
 	maxconeindex := position(maxcones, sigma -> sigma == imageCone);
 	--calculate coefficient (coefficientRho) of prime divisor corresponding to the ray rho by
