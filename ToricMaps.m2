@@ -353,7 +353,7 @@ for rho in imageSourceCones do(
 	then (hitConeIndex := position(targetCones, i->i==sigma ); targetCones = drop(targetCones, hitConeIndex););
 	);
     );
-true
+false
 )
 
 
