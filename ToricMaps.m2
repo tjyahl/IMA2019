@@ -305,6 +305,12 @@ classGroup ToricMap := Matrix => f -> (
 
 
 isFibration = method()
+-- We're not convinced this work. It seems to be based on:
+-- 1) Page 133 of Cox, Little, Schenck, which says that if a map of integer lattices is surjective, then it's *locally* a fibration
+-- https://www.mimuw.edu.pl/~jarekw/pragmatic2010/CoxLittleSchenckJan2010.pdf
+-- 2) Stackexchange discussion which gives a characterization of surjective maps of integer lattices
+-- https://math.stackexchange.com/questions/132689/elementary-proof-that-if-a-is-a-matrix-map-from-mathbbzm-to-mathbb-zn
+--There may be a way to fix this, based on Cox, Little, Schenck chapter 7, but it needs work.
 isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 
 isDominant = method()
