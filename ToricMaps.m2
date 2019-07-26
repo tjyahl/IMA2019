@@ -284,20 +284,21 @@ isProper (ToricMap,ZZ) := (f,banana)->(
 isFibration = method()
 isFibration ToricMap := Boolean => f -> 1 == minors(dim target f, matrix f)
 
-isDominant ToricMap := Boolean => f -> rank matrix f == dim target f
+isDominant = method()
+isDominant ToricMap := Boolean => f -> (rank matrix f == dim target f)
 
-isSurjective = method()
+--isSurjective = method()
 isSurjective (ToricMap) := Boolean => (f) -> (
-targetCones = reverse flatten drop(values orbits target f, -1)
-sourceCones = flatten drop(values orbits source f, -1)
-interiorSourceCones = {}
+targetCones := reverse flatten drop(values orbits target f, -1);
+sourceCones := flatten drop(values orbits source f, -1);
+interiorSourceCones := {};
 for sigma in sourceCones do(
-  interiorSourceCones = append(interiorSourceCones, sum( (rays X)_sigma))
-)
-imageSourceCones = {}
+  interiorSourceCones := append(interiorSourceCones, sum( (rays source f)_sigma));
+);
+imageSourceCones := {};
 for sigma in interiorSourceCones do (
-   imageSourceCones = append(imageSourceCones, flatten entries((matrix f) * (transpose matrix{sigma})) )
-)
+   imageSourceCones := append(imageSourceCones, flatten entries((matrix f) * (transpose matrix{sigma})) );
+);
 --TEST WHICH CONES THESE LAND IN AND EDIT SOURCECONES LIST.
 true
 )
